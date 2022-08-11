@@ -4,10 +4,11 @@ import com.simpreserv.model.NotFoundException;
 import com.simpreserv.model.Room;
 import com.simpreserv.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
+@Service
 public class RoomService {
 
     @Autowired
