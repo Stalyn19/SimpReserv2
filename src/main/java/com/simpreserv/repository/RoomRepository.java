@@ -11,7 +11,9 @@ import java.util.List;
 @Repository
 public interface RoomRepository extends JpaRepository<Room, Integer> {
 
-    Long countByRoomId(Integer RoomId);
+    default Long countByRoomId(Integer roomId) {
+        return null;
+    }
 
     @Query("SELECT e FROM Room e WHERE e.number = ?1")
     Employee findByRoomNumber(String room);
