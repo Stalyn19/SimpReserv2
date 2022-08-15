@@ -16,7 +16,7 @@ public class RoomService {
 
   public List<Room> listAll(String keyword){
     if (keyword!=null){
-      return roomRepository.findAll();
+      return roomRepository.findAll(keyword);
     }
     return roomRepository.findAll();
   }
