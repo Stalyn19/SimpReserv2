@@ -8,39 +8,37 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
 @Service
 public class RoomService {
 
-    @Autowired
-    private RoomRepository roomRepository;
+  @Autowired private RoomRepository roomRepository;
 
-    public List<Room> listAll(String keyword){
-        if (keyword != null){
-            return roomRepository.findAll(keyword);
-        }
-        return roomRepository.findAll();
+  public List<Room> listAll(String keyword){
+    if (keyword!=null){
+      return roomRepository.findAll();
     }
+    return roomRepository.findAll();
+  }
 
-    public void saveRoom(Room room) {
-        roomRepository.save(room);
+  public void save(Room room) {
+    roomRepository.save(room);
+  }
+
+  public Room get(Integer id) throws NotFoundException {
+    Optional<Room> result = roomRepository.findById(id);
+    if (result.isPresent()){
+      return result.get();
     }
+    throw new NotFoundException("Could not find any Rooms with ID " + id);
+  }
 
-    public Room get(int id) throws NotFoundException {
-        Optional<Room> result = roomRepository.findById(id);
-        if (result.isPresent()){
-            return result.get();
-        }
-        throw new NotFoundException("Could not find any room with ID " + id);
+  public void delete(Integer roomId) throws NotFoundException {
+    Long count = roomRepository.countByRoomId(roomId);
+    if (count==null || count==0){
+      throw new NotFoundException("Could not find any Rooms with ID " + roomId);
     }
-
-    public void delete(int roomId) throws NotFoundException {
-        Long count = roomRepository.countByRoomId(roomId);
-        if (count==null || count==0){
-            throw new NotFoundException("Could not find any room with ID " + roomId);
-        }
-        roomRepository.deleteById(roomId);
-    }
-
-
+    roomRepository.deleteById(roomId);
+  }
 
 }
